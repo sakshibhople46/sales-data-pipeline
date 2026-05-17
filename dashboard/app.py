@@ -1,5 +1,13 @@
 import sys
 import os
+if not os.path.exists("database/sales.db"):
+    from data.generate_data import *
+    from etl.extract import extract_data
+    from etl.transform import transform_data
+    from etl.load import load_data
+    df = extract_data("data/raw_sales.csv")
+    transformed_df = transform_data(df)
+    load_data(transformed_df)
 
 # Allow imports from project root
 sys.path.append(
